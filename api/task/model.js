@@ -31,7 +31,10 @@ async function add(tasks) {
     task_description: tasks.task_description,
     task_completed: tasks.task_completed === 1 ? true : false,
   };
-  return newTasks.where("task_id", id).first();
+
+  return newTasks;
+  // const [task_id] = await db("tasks").insert(task);
+  // return db("tasks").where({ task_id }).first();
 }
 
 module.exports = { find, add };
