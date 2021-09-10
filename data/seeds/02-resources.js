@@ -1,13 +1,12 @@
 const resources = [
   {
-    resource_name: "stackoverflow",
-    resource_description:
-      "one of the only reasons the internet isnt a complete barren wasteland",
+    resource_name: "stack overflow",
+    resource_description: "I hope you enjoy reading",
   },
-  { resource_name: "lambda courses", resource_description: "review materials" },
+  { resource_name: "old lambda courses", resource_description: "review" },
   {
     resource_name: "friends",
-    resource_description: "sometimes, it takes a village",
+    resource_description: "it takes a village",
   },
 ];
 

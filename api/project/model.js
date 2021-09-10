@@ -5,12 +5,14 @@ async function find() {
   const projectResults = await db("projects as p");
 
   const projectInfo = projectResults.map((e) => {
-    return {
-      project_id: e.project_id,
-      project_name: e.project_name,
-      project_description: e.project_description,
-      project_completed: e.project_completed,
-    };
+    return [
+      {
+        project_id: e.project_id,
+        project_name: e.project_name,
+        project_description: e.project_description,
+        project_completed: e.project_completed,
+      },
+    ];
   });
 
   return projectInfo;

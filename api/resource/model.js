@@ -2,9 +2,17 @@
 const db = require("../../data/dbConfig");
 
 async function find() {
-  const resourceResults = await db("resources as r").select("r.*");
-
-  return resourceResults;
+  return await db("resources");
 }
 
-module.exports = { find };
+async function add(resource) {
+  const [id] = await db("resources").insert(resource);
+  const newResource = {
+    resource_id: id,
+    resource_name: resource.resource_name,
+    resource_description: resource.resource_description,
+  };
+  return newResource;
+}
+
+module.exports = { find, add };

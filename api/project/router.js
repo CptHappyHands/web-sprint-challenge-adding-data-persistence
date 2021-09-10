@@ -13,7 +13,13 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  Projects.add();
+  const projects = req.body;
+
+  Projects.add(projects)
+    .then((project) => {
+      res.status(201).json(project);
+    })
+    .catch(next);
 });
 
 module.exports = router;
