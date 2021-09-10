@@ -2,14 +2,21 @@
 const db = require("../../data/dbConfig");
 
 async function find() {
-  const tasksResults = await db("tasks");
+  const tasksResults = await db("tasks as t").leftJoin(
+    "projects as p",
+    "t.project_id",
+    "p.project_id"
+  );
+  // .select("*.t");
 
   const tasksInfo = tasksResults.map((e) => {
     return {
-      tasks_id: e.tasks_id,
-      tasks_notes: e.tasks_notes,
-      tasks_description: e.tasks_description,
-      tasks_completed: e.tasks_completed === 1 ? true : false,
+      task_id: e.task_id,
+      task_notes: e.task_notes,
+      task_description: e.task_description,
+      task_completed: e.task_completed === 1 ? true : false,
+      project_name: e.project_name,
+      project_description: e.project_description,
     };
   });
 
@@ -19,12 +26,12 @@ async function find() {
 async function add(tasks) {
   const [id] = await db("tasks").insert(tasks);
   const newTasks = {
-    tasks_id: id,
-    tasks_notes: tasks.tasks_notes,
-    tasks_description: tasks.tasks_description,
-    tasks_completed: tasks.tasks_completed === 1 ? true : false,
+    task_id: id,
+    task_notes: tasks.task_notes,
+    task_description: tasks.task_description,
+    task_completed: tasks.task_completed === 1 ? true : false,
   };
-  return newTasks;
+  return newTasks.where("task_id", id).first();
 }
 
 module.exports = { find, add };
